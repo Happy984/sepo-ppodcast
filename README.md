@@ -5,12 +5,10 @@ Tags: podcast, audio, player, rss, episodes
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Description: Sepo Podcast turns WordPress into a home for your show. Every episode is a normal WordPress post with its own page, so it works with your theme, comments, search and SEO plugins.
 ---
+
 Publish podcast episodes with a clean player, likes, download counts, sign-in-only downloads
-
-== Description ==
-
-Sepo Podcast turns WordPress into a home for your show. Every episode is a normal WordPress post with its own page, so it works with your theme, comments, search and SEO plugins.
 
 **For listeners**
 
