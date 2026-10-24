@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sepo-podcast/episodes",
+	"version": "1.0.0",
+	"title": "Podcast episodes",
+	"category": "media",
+	"icon": "microphone",
+	"description": "A searchable list of podcast episodes with series filters and a player.",
+	"keywords": [ "podcast", "audio", "episodes" ],
+	"textdomain": "sepo-podcast",
+	"attributes": {
+		"series": { "type": "string", "default": "" },
+		"perPage": { "type": "number", "default": 10 },
+		"showSearch": { "type": "boolean", "default": true },
+		"showSeries": { "type": "boolean", "default": true },
+		"order": { "type": "string", "enum": [ "newest", "oldest", "custom" ], "default": "newest" }
+	},
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": { "margin": true, "padding": true }
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:../../assets/css/podcast.css"
+}

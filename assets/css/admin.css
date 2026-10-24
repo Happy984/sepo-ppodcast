@@ -1,0 +1,82 @@
+.sepo-podcast-box .sp-source {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 18px;
+	margin: 4px 0 12px;
+}
+
+.sepo-podcast-box .sp-source legend {
+	width: 100%;
+	margin-bottom: 6px;
+	font-weight: 600;
+}
+
+.sepo-podcast-box .sp-panel {
+	display: none;
+	padding: 12px;
+	margin: 0 0 14px;
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+}
+
+.sepo-podcast-box[data-source="media"] .sp-panel[data-for="media"],
+.sepo-podcast-box[data-source="external"] .sp-panel[data-for="external"],
+.sepo-podcast-box[data-source="protected"] .sp-panel[data-for="protected"] {
+	display: block;
+}
+
+.sepo-podcast-box .sp-file {
+	margin: 0 8px;
+	font-family: Consolas, Monaco, monospace;
+}
+
+.sepo-podcast-box .sp-remove {
+	color: #b32d2e;
+}
+
+.sepo-podcast-box .sp-warn,
+.sepo-podcast-box .is-error {
+	color: #b32d2e;
+}
+
+.sepo-podcast-box .sp-progress {
+	margin-left: 8px;
+}
+
+.sepo-podcast-box .sp-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+	gap: 0 16px;
+}
+
+.sepo-podcast-box .sp-grid label {
+	display: block;
+	margin-bottom: 4px;
+	font-weight: 600;
+}
+
+.sepo-podcast-box .sp-grid input,
+.sepo-podcast-box .sp-grid select {
+	width: 100%;
+}
+
+.sepo-podcast-box .sp-checks label {
+	display: block;
+	margin: 6px 0;
+}
+
+.sepo-podcast-box .sp-counts {
+	color: #646970;
+}
+
+.column-sepo_number,
+.column-sepo_duration,
+.column-sepo_likes,
+.column-sepo_downloads {
+	width: 90px;
+}
+
+.column-sepo_audio {
+	width: 130px;
+}
