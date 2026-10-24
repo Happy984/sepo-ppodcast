@@ -75,12 +75,4 @@ From the command line: `wp sepo-podcast import episodes.zip --status=publish --b
 
 Nothing, unless you tick the boxes under Settings → Sepo Podcast → "When the plugin is deleted". You can choose to remove likes, counts and settings, and optionally every episode and the protected audio files.
 
-== Changelog ==
-
-= 1.0.0 =
-* First release.
-
-== Upgrade Notice ==
-
-= 1.0.0 =
-First release.
+* First release 1.0.0 
