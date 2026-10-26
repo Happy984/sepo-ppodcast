@@ -231,7 +231,6 @@
 	var dock = null;
 
 	function buildDock() {
-		var tpl = document.querySelector( '.sp-player' );
 		var el = document.createElement( 'div' );
 		el.className = 'sp-dock';
 		el.hidden = true;
@@ -262,10 +261,6 @@
 		el.querySelector( '[data-sp-rate]' ).setAttribute( 'aria-label', __( 'Playback speed', 'sepo-podcast' ) );
 		el.querySelector( '.sp-dock-close' ).setAttribute( 'aria-label', __( 'Close player', 'sepo-podcast' ) );
 
-		var accentHost = tpl ? tpl.closest( '.sepo-podcast' ) : null;
-		if ( accentHost ) {
-			el.style.setProperty( '--sp-accent', getComputedStyle( accentHost ).getPropertyValue( '--sp-accent' ) );
-		}
 		document.body.appendChild( el );
 
 		var player = new Player( el.querySelector( '[data-sp-player]' ) );

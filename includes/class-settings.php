@@ -34,6 +34,7 @@ final class Settings {
 			'ungrouped_label'    => __( 'Other episodes', 'sepo-podcast' ),
 			'show_related'       => 1,
 			'accent'             => '#0b3d33',
+			'theme_colors'       => 1,
 			'count_window'       => 60,
 			'protect_new'        => 0,
 			'feed_title'         => '',
@@ -173,7 +174,7 @@ final class Settings {
 		$accent                 = sanitize_hex_color( (string) ( $in['accent'] ?? '' ) );
 		$out['accent']          = $accent ? $accent : '#0b3d33';
 
-		foreach ( array( 'show_related', 'protect_new', 'feed_explicit', 'feed_locked', 'delete_on_uninstall', 'delete_episodes' ) as $flag ) {
+		foreach ( array( 'theme_colors', 'show_related', 'protect_new', 'feed_explicit', 'feed_locked', 'delete_on_uninstall', 'delete_episodes' ) as $flag ) {
 			$out[ $flag ] = empty( $in[ $flag ] ) ? 0 : 1;
 		}
 
@@ -278,7 +279,11 @@ final class Settings {
 					</tr>
 					<tr>
 						<th scope="row"><label for="sp-accent"><?php esc_html_e( 'Accent colour', 'sepo-podcast' ); ?></label></th>
-						<td><input type="color" id="sp-accent" name="<?php echo esc_attr( $name ); ?>[accent]" value="<?php echo esc_attr( $s['accent'] ); ?>"></td>
+						<td>
+							<label><input type="checkbox" name="<?php echo esc_attr( $name ); ?>[theme_colors]" value="1" <?php checked( $s['theme_colors'] ); ?>> <?php esc_html_e( 'Use my theme\'s colours', 'sepo-podcast' ); ?></label>
+							<p class="description"><?php esc_html_e( 'Recommended with the SepoDesk theme: the player, buttons and links then follow the theme, its skins and its dark mode. Untick to use the colour below instead.', 'sepo-podcast' ); ?></p>
+							<p><input type="color" id="sp-accent" name="<?php echo esc_attr( $name ); ?>[accent]" value="<?php echo esc_attr( $s['accent'] ); ?>"></p>
+						</td>
 					</tr>
 				</table>
 

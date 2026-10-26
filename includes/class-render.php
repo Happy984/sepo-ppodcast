@@ -78,8 +78,13 @@ final class Render {
 		}
 		wp_enqueue_style( self::HANDLE );
 		$accent = sanitize_hex_color( (string) Settings::get( 'accent' ) );
-		if ( $accent ) {
-			wp_add_inline_style( self::HANDLE, '.sepo-podcast,.sp-dock{--sp-accent:' . $accent . ';}' );
+		if ( $accent && ! Settings::get( 'theme_colors' ) ) {
+			// A chosen colour wins over the theme in both light and dark mode, so
+			// the text on it is picked for contrast rather than taken from the theme.
+			wp_add_inline_style(
+				self::HANDLE,
+				'.sepo-podcast,.sp-dock,html[data-theme="dark"] .sepo-podcast,html[data-theme="dark"] .sp-dock{--sp-accent:' . $accent . ';--sp-accent-ink:' . self::ink_for( $accent ) . ';--sp-accent-h:' . $accent . ';}'
+			);
 		}
 
 		wp_enqueue_script( self::HANDLE );
@@ -90,6 +95,27 @@ final class Render {
 			'loginUrl' => wp_login_url( self::current_url() ),
 		);
 		wp_add_inline_script( self::HANDLE, 'window.SepoPodcast = ' . wp_json_encode( $config ) . ';', 'before' );
+	}
+
+	/**
+	 * White or near-black text, whichever reads better on a colour (WCAG contrast).
+	 *
+	 * @param string $hex Colour like #0b3d33.
+	 */
+	public static function ink_for( string $hex ): string {
+		$hex = ltrim( $hex, '#' );
+		if ( 3 === strlen( $hex ) ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+		$lum = 0.0;
+		foreach ( array( 0.2126, 0.7152, 0.0722 ) as $i => $weight ) {
+			$c    = hexdec( substr( $hex, $i * 2, 2 ) ) / 255;
+			$c    = $c <= 0.03928 ? $c / 12.92 : ( ( $c + 0.055 ) / 1.055 ) ** 2.4;
+			$lum += $weight * $c;
+		}
+		$on_white = 1.05 / ( $lum + 0.05 );
+		$on_black = ( $lum + 0.05 ) / 0.05;
+		return $on_white >= $on_black ? '#ffffff' : '#0a1613';
 	}
 
 	/**

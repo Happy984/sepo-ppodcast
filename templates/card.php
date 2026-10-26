@@ -33,7 +33,9 @@ $sp_number  = Render::number_label( $sp_ep );
 			<?php if ( $sp_number ) : ?>
 				<span><?php echo esc_html( $sp_number ); ?></span>
 			<?php endif; ?>
-			<span><?php echo esc_html( $sp_ep['date'] ); ?></span>
+			<?php if ( ! $sp_compact ) : ?>
+				<span><?php echo esc_html( $sp_ep['date'] ); ?></span>
+			<?php endif; ?>
 			<?php if ( $sp_ep['duration'] ) : ?>
 				<span><?php echo esc_html( $sp_ep['duration'] ); ?></span>
 			<?php endif; ?>
