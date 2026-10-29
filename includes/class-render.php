@@ -42,6 +42,7 @@ final class Render {
 	public static function register(): void {
 		wp_register_style( self::HANDLE, SEPO_PODCAST_URL . 'assets/css/podcast.css', array(), SEPO_PODCAST_VERSION );
 		wp_register_script( self::HANDLE, SEPO_PODCAST_URL . 'assets/js/podcast.js', array( 'wp-i18n' ), SEPO_PODCAST_VERSION, true );
+		wp_script_add_data( self::HANDLE, 'strategy', 'defer' );
 		wp_set_script_translations( self::HANDLE, 'sepo-podcast', SEPO_PODCAST_DIR . 'languages' );
 
 		register_block_type(
