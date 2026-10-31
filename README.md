@@ -74,9 +74,12 @@ Every episode is a normal WordPress post with its own page, so it works with you
 
 ### From a release zip (recommended)
 
-1. Download `sepo-podcast.zip` from the [Releases](../../releases) page.
+1. Download `sepo-podcast.zip`.
 2. In WordPress, go to **Plugins → Add New Plugin → Upload Plugin**.
 3. Choose the zip, click **Install Now**, then **Activate**.
+
+> [!NOTE]
+> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-ppodcast-main`. Rename it to `sepo-podcast` before uploading.
 
 ### With Git
 
