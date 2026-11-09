@@ -1,0 +1,856 @@
+# Copyright (C) 2026 Euneolink Solutions
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sepo Podcast 1.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sepo-podcast\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-08 13:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Domain: sepo-podcast\n"
+
+#: assets/js/admin.js:34
+msgid "Choose episode audio"
+msgstr ""
+
+#: assets/js/admin.js:35
+msgid "Use this audio"
+msgstr ""
+
+#: assets/js/admin.js:68
+msgid "This file is larger than the server allows."
+msgstr ""
+
+#: assets/js/admin.js:79
+#: assets/js/admin.js:85
+msgid "Uploading…"
+msgstr ""
+
+#: assets/js/admin.js:97
+msgid "Uploaded. Save the episode to keep it."
+msgstr ""
+
+#: assets/js/admin.js:99
+#: assets/js/admin.js:104
+msgid "Upload failed."
+msgstr ""
+
+#: assets/js/podcast.js:195
+msgid "Pause"
+msgstr ""
+
+#: assets/js/podcast.js:195
+#: assets/js/podcast.js:257
+#: templates/player.php:24
+msgid "Play"
+msgstr ""
+
+#: assets/js/podcast.js:238
+msgid "Podcast player"
+msgstr ""
+
+#: assets/js/podcast.js:258
+#: templates/player.php:29
+msgid "Seek"
+msgstr ""
+
+#: assets/js/podcast.js:259
+#: templates/player.php:27
+msgid "Back 15 seconds"
+msgstr ""
+
+#: assets/js/podcast.js:260
+#: templates/player.php:32
+msgid "Forward 30 seconds"
+msgstr ""
+
+#: assets/js/podcast.js:261
+#: templates/player.php:33
+msgid "Playback speed"
+msgstr ""
+
+#: assets/js/podcast.js:262
+msgid "Close player"
+msgstr ""
+
+#: templates/actions.php:23
+#: templates/actions.php:29
+msgid "Like"
+msgstr ""
+
+#: templates/actions.php:27
+msgid "Sign in to like this episode"
+msgstr ""
+
+#: templates/actions.php:38
+#: includes/class-admin.php:408
+#: includes/class-admin.php:409
+msgid "Sign in to download"
+msgstr ""
+
+#: templates/actions.php:44
+msgid "Download"
+msgstr ""
+
+#: templates/card.php:49
+#: includes/class-admin.php:336
+msgid "Likes"
+msgstr ""
+
+#: templates/card.php:50
+#: includes/class-admin.php:335
+#: includes/class-settings.php:290
+msgid "Downloads"
+msgstr ""
+
+#. translators: %s: episode title.
+#: templates/card.php:64
+#, php-format
+msgid "Play %s"
+msgstr ""
+
+#: templates/episode.php:40
+msgid "Explicit"
+msgstr ""
+
+#: templates/episode.php:46
+#: includes/class-admin.php:179
+msgid "Host"
+msgstr ""
+
+#: templates/episode.php:49
+#: includes/class-admin.php:183
+msgid "Guest"
+msgstr ""
+
+#: templates/episode.php:68
+#: includes/class-post-type.php:73
+msgid "All episodes"
+msgstr ""
+
+#: templates/episode.php:86
+msgid "More episodes"
+msgstr ""
+
+#: templates/list.php:21
+#: includes/class-settings.php:34
+msgid "Other episodes"
+msgstr ""
+
+#: templates/list.php:27
+#: includes/class-post-type.php:97
+#: includes/class-post-type.php:98
+#: blocks/episodes/index.js:40
+msgid "Series"
+msgstr ""
+
+#: templates/list.php:28
+msgid "All"
+msgstr ""
+
+#: templates/list.php:44
+#: templates/list.php:46
+#: includes/class-post-type.php:70
+msgid "Search episodes"
+msgstr ""
+
+#: templates/list.php:62
+msgid "Clear"
+msgstr ""
+
+#: templates/list.php:82
+#: includes/class-post-type.php:71
+msgid "No episodes found."
+msgstr ""
+
+#: templates/list.php:86
+#: includes/class-settings.php:277
+msgid "Episode pages"
+msgstr ""
+
+#: templates/list.php:94
+msgid "Previous"
+msgstr ""
+
+#. translators: 1: current page, 2: number of pages.
+#: templates/list.php:99
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: templates/list.php:103
+msgid "Next"
+msgstr ""
+
+#. translators: 1: number of episodes, 2: search words.
+#: templates/list.php:57
+#, php-format
+msgid "%1$s episode for “%2$s”"
+msgid_plural "%1$s episodes for “%2$s”"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-admin.php:53
+msgid "Episode details"
+msgstr ""
+
+#: includes/class-admin.php:119
+msgid "Audio file"
+msgstr ""
+
+#: includes/class-admin.php:120
+msgid "Media Library"
+msgstr ""
+
+#: includes/class-admin.php:121
+msgid "Address on another site"
+msgstr ""
+
+#: includes/class-admin.php:122
+#: includes/class-admin.php:400
+#: includes/class-admin.php:405
+msgid "Protected file"
+msgstr ""
+
+#: includes/class-admin.php:127
+msgid "Choose audio"
+msgstr ""
+
+#: includes/class-admin.php:129
+msgid "Remove"
+msgstr ""
+
+#: includes/class-admin.php:130
+msgid "Anyone with the file address can download Media Library files. Use a protected file if \"Only signed-in visitors may download\" must hold."
+msgstr ""
+
+#: includes/class-admin.php:134
+msgid "Audio address"
+msgstr ""
+
+#: includes/class-admin.php:143
+msgid "The stored file is missing. Upload it again."
+msgstr ""
+
+#: includes/class-admin.php:146
+msgid "Upload protected audio"
+msgstr ""
+
+#: includes/class-admin.php:150
+msgid "Stored outside the Media Library and only served through this site, which checks sign-in before every download."
+msgstr ""
+
+#: includes/class-admin.php:152
+msgid "Warning: your server does not block the protected folder yet. See Settings → Sepo Podcast."
+msgstr ""
+
+#: includes/class-admin.php:159
+#: includes/class-admin.php:334
+msgid "Length"
+msgstr ""
+
+#: includes/class-admin.php:163
+msgid "Season"
+msgstr ""
+
+#: includes/class-admin.php:167
+msgid "Episode number"
+msgstr ""
+
+#: includes/class-admin.php:171
+msgid "Type"
+msgstr ""
+
+#: includes/class-admin.php:173
+msgid "Full episode"
+msgstr ""
+
+#: includes/class-admin.php:174
+#: includes/class-render.php:547
+msgid "Trailer"
+msgstr ""
+
+#: includes/class-admin.php:175
+#: includes/class-render.php:549
+msgid "Bonus"
+msgstr ""
+
+#: includes/class-admin.php:189
+msgid "Show a Download button"
+msgstr ""
+
+#: includes/class-admin.php:190
+msgid "Only signed-in visitors may download (left out of the public feed)"
+msgstr ""
+
+#: includes/class-admin.php:191
+msgid "Explicit content"
+msgstr ""
+
+#. translators: 1: number of likes, 2: number of downloads.
+#: includes/class-admin.php:199
+#, php-format
+msgid "%1$s likes · %2$s downloads"
+msgstr ""
+
+#: includes/class-admin.php:295
+msgid "You are not allowed to upload files for this episode."
+msgstr ""
+
+#: includes/class-admin.php:298
+msgid "No file was received."
+msgstr ""
+
+#: includes/class-admin.php:326
+#: includes/class-admin.php:395
+msgid "Audio"
+msgstr ""
+
+#: includes/class-admin.php:333
+#: includes/class-post-type.php:63
+#: includes/class-privacy.php:75
+#: includes/class-privacy.php:92
+msgid "Episode"
+msgstr ""
+
+#: includes/class-admin.php:391
+msgid "None"
+msgstr ""
+
+#: includes/class-admin.php:395
+msgid "Link"
+msgstr ""
+
+#: includes/class-admin.php:398
+msgid "Media Library file"
+msgstr ""
+
+#: includes/class-admin.php:399
+msgid "Hosted on another site"
+msgstr ""
+
+#: includes/class-admin.php:469
+msgid "Clear the likes and download count for this episode?"
+msgstr ""
+
+#: includes/class-admin.php:469
+msgid "Reset counts"
+msgstr ""
+
+#: includes/class-admin.php:480
+msgid "You are not allowed to do that."
+msgstr ""
+
+#: includes/class-admin.php:492
+msgid "Counts cleared."
+msgstr ""
+
+#: includes/class-admin.php:505
+#: includes/class-admin.php:521
+#: includes/class-admin.php:551
+#: blocks/episodes/index.js:57
+msgid "Order"
+msgstr ""
+
+#: includes/class-admin.php:507
+#: includes/class-admin.php:524
+msgid "Lower numbers come first in the series filter."
+msgstr ""
+
+#: includes/class-admin.php:575
+msgid "Settings"
+msgstr ""
+
+#: includes/class-download.php:141
+#: includes/class-download.php:145
+#: includes/class-rest.php:94
+#: includes/class-rest.php:97
+msgid "Episode not found."
+msgstr ""
+
+#: includes/class-download.php:148
+#: includes/class-rest.php:100
+msgid "This episode is password protected."
+msgstr ""
+
+#: includes/class-download.php:154
+#: includes/class-download.php:300
+msgid "This episode has no audio file."
+msgstr ""
+
+#: includes/class-download.php:164
+msgid "This player address has expired. Reload the episode page."
+msgstr ""
+
+#: includes/class-download.php:169
+msgid "Downloads are turned off for this episode."
+msgstr ""
+
+#: includes/class-download.php:313
+msgid "Podcast file"
+msgstr ""
+
+#: includes/class-importer.php:65
+#: includes/class-importer.php:65
+msgid "Import podcast"
+msgstr ""
+
+#: includes/class-importer.php:81
+msgid "Import podcast episodes"
+msgstr ""
+
+#. translators: 1: created, 2: updated, 3: skipped.
+#: includes/class-importer.php:89
+#, php-format
+msgid "Created %1$d, updated %2$d, skipped %3$d episodes."
+msgstr ""
+
+#: includes/class-importer.php:106
+msgid "Upload a .zip that holds one Markdown file per episode. Each file starts with front matter, for example:"
+msgstr ""
+
+#: includes/class-importer.php:122
+msgid "Audio and images inside the zip are added to the Media Library (or the protected folder for gated episodes). Addresses starting with http stay where they are. Add likes.json and downloads.json ({\"episode-key\": 42}) to carry totals over. Importing the same zip again updates the episodes instead of duplicating them."
+msgstr ""
+
+#: includes/class-importer.php:129
+msgid "Zip file"
+msgstr ""
+
+#. translators: %s: maximum upload size.
+#: includes/class-importer.php:132
+#, php-format
+msgid "Largest file this server accepts: %s. Bigger archives can be imported with WP-CLI."
+msgstr ""
+
+#: includes/class-importer.php:135
+msgid "Old site address (optional)"
+msgstr ""
+
+#: includes/class-importer.php:137
+msgid "Relative audio or image paths that are not in the zip are linked to this address."
+msgstr ""
+
+#: includes/class-importer.php:140
+msgid "Status"
+msgstr ""
+
+#: includes/class-importer.php:142
+msgid "Drafts, so I can check them first"
+msgstr ""
+
+#: includes/class-importer.php:143
+msgid "Publish (keeps the original dates)"
+msgstr ""
+
+#: includes/class-importer.php:147
+msgid "Import"
+msgstr ""
+
+#: includes/class-importer.php:159
+msgid "You are not allowed to import."
+msgstr ""
+
+#: includes/class-importer.php:170
+msgid "The zip file did not upload."
+msgstr ""
+
+#: includes/class-importer.php:172
+msgid "Please upload a .zip file."
+msgstr ""
+
+#: includes/class-importer.php:233
+msgid "Could not create a working folder in uploads."
+msgstr ""
+
+#: includes/class-post-type.php:62
+#: includes/class-settings.php:245
+#: blocks/episodes/index.js:38
+msgid "Episodes"
+msgstr ""
+
+#: includes/class-post-type.php:64
+#: includes/class-settings.php:115
+msgid "Podcast"
+msgstr ""
+
+#: includes/class-post-type.php:65
+msgid "Add episode"
+msgstr ""
+
+#: includes/class-post-type.php:66
+msgid "Add new episode"
+msgstr ""
+
+#: includes/class-post-type.php:67
+msgid "Edit episode"
+msgstr ""
+
+#: includes/class-post-type.php:68
+msgid "New episode"
+msgstr ""
+
+#: includes/class-post-type.php:69
+msgid "View episode"
+msgstr ""
+
+#: includes/class-post-type.php:72
+msgid "No episodes in the trash."
+msgstr ""
+
+#: includes/class-post-type.php:74
+msgid "Episode artwork"
+msgstr ""
+
+#: includes/class-post-type.php:75
+msgid "Set episode artwork"
+msgstr ""
+
+#: includes/class-post-type.php:99
+msgid "Add new series"
+msgstr ""
+
+#: includes/class-post-type.php:100
+msgid "Edit series"
+msgstr ""
+
+#: includes/class-post-type.php:101
+msgid "Search series"
+msgstr ""
+
+#: includes/class-post-type.php:102
+#: blocks/episodes/index.js:25
+msgid "All series"
+msgstr ""
+
+#: includes/class-post-type.php:116
+msgid "Episode tags"
+msgstr ""
+
+#: includes/class-post-type.php:117
+msgid "Episode tag"
+msgstr ""
+
+#: includes/class-privacy.php:33
+#: includes/class-privacy.php:46
+msgid "Podcast likes and downloads"
+msgstr ""
+
+#: includes/class-privacy.php:71
+msgid "Podcast likes"
+msgstr ""
+
+#: includes/class-privacy.php:79
+msgid "Liked on"
+msgstr ""
+
+#: includes/class-privacy.php:88
+msgid "Podcast downloads"
+msgstr ""
+
+#: includes/class-privacy.php:96
+msgid "Times downloaded"
+msgstr ""
+
+#: includes/class-privacy.php:100
+msgid "First download"
+msgstr ""
+
+#: includes/class-privacy.php:104
+msgid "Last download"
+msgstr ""
+
+#: includes/class-privacy.php:128
+msgid "Podcast likes were removed and downloads were made anonymous (totals are kept)."
+msgstr ""
+
+#: includes/class-privacy.php:140
+msgid "When you are signed in and like a podcast episode, we store which episode you liked and when. When you download an episode while signed in, we store how many times you downloaded it and when. Downloads by visitors who are not signed in are counted without storing who they are."
+msgstr ""
+
+#: includes/class-privacy.php:141
+msgid "To stop one person being counted many times in a row, a short-lived marker made from a one-way hash of the IP address and browser is kept for about a minute. It is not stored with the download count."
+msgstr ""
+
+#: includes/class-privacy.php:142
+msgid "The player remembers where you stopped listening in your own browser (local storage). It is not sent to us."
+msgstr ""
+
+#: includes/class-privacy.php:143
+#: includes/class-settings.php:134
+#: includes/class-settings.php:135
+#: includes/class-settings.php:231
+#: sepo-podcast.php
+msgid "Sepo Podcast"
+msgstr ""
+
+#: includes/class-private-files.php:92
+#: includes/class-private-files.php:127
+msgid "The protected folder could not be created."
+msgstr ""
+
+#: includes/class-private-files.php:131
+msgid "That file type is not allowed for protected audio."
+msgstr ""
+
+#: includes/class-private-files.php:136
+msgid "The file could not be copied."
+msgstr ""
+
+#. translators: %s: season number.
+#: includes/class-render.php:540
+#, php-format
+msgid "S%s"
+msgstr ""
+
+#. translators: %s: episode number.
+#: includes/class-render.php:544
+#, php-format
+msgid "E%s"
+msgstr ""
+
+#: includes/class-rest.php:113
+msgid "Sign in to like episodes."
+msgstr ""
+
+#: includes/class-settings.php:117
+msgid "Listen to our latest episodes."
+msgstr ""
+
+#: includes/class-settings.php:235
+msgid "Protected files are reachable from the web."
+msgstr ""
+
+#: includes/class-settings.php:236
+msgid "Your server ignores the .htaccess file in the protected folder (this is normal on nginx). Add this rule to your server configuration:"
+msgstr ""
+
+#: includes/class-settings.php:239
+msgid "Protected files: the private folder is blocked from the web."
+msgstr ""
+
+#: includes/class-settings.php:248
+msgid "Episode address"
+msgstr ""
+
+#: includes/class-settings.php:252
+msgid "Episode list page"
+msgstr ""
+
+#: includes/class-settings.php:260
+msgid "— None —"
+msgstr ""
+
+#: includes/class-settings.php:265
+msgid "The page that holds the [sepo_podcast] shortcode or the Podcast episodes block. Linked from each episode."
+msgstr ""
+
+#: includes/class-settings.php:269
+#: blocks/episodes/index.js:48
+msgid "Episodes per page"
+msgstr ""
+
+#: includes/class-settings.php:273
+msgid "Label for episodes without a series"
+msgstr ""
+
+#: includes/class-settings.php:278
+msgid "Show \"More episodes\" under each episode"
+msgstr ""
+
+#: includes/class-settings.php:281
+msgid "Accent colour"
+msgstr ""
+
+#: includes/class-settings.php:283
+msgid "Use my theme's colours"
+msgstr ""
+
+#: includes/class-settings.php:284
+msgid "Recommended with the SepoDesk theme: the player, buttons and links then follow the theme, its skins and its dark mode. Untick to use the colour below instead."
+msgstr ""
+
+#: includes/class-settings.php:293
+msgid "Count a repeat download after"
+msgstr ""
+
+#: includes/class-settings.php:294
+msgid "seconds (stops double clicks inflating counts)"
+msgstr ""
+
+#: includes/class-settings.php:297
+msgid "Protected files"
+msgstr ""
+
+#: includes/class-settings.php:299
+msgid "Tick \"Protect this file\" by default on new episodes"
+msgstr ""
+
+#: includes/class-settings.php:300
+msgid "Protected audio is stored outside the public Media Library and only streamed through Sepo Podcast, so \"Sign in to download\" cannot be bypassed by copying the file address."
+msgstr ""
+
+#: includes/class-settings.php:305
+msgid "Podcast feed (Apple Podcasts, Spotify)"
+msgstr ""
+
+#: includes/class-settings.php:306
+msgid "Feed address:"
+msgstr ""
+
+#: includes/class-settings.php:308
+msgid "Show title"
+msgstr ""
+
+#: includes/class-settings.php:309
+msgid "Show description"
+msgstr ""
+
+#: includes/class-settings.php:310
+msgid "Author"
+msgstr ""
+
+#: includes/class-settings.php:311
+msgid "Owner name and email"
+msgstr ""
+
+#: includes/class-settings.php:311
+msgid "Name"
+msgstr ""
+
+#: includes/class-settings.php:311
+msgid "Email (Apple uses it to verify you)"
+msgstr ""
+
+#: includes/class-settings.php:312
+msgid "Category"
+msgstr ""
+
+#: includes/class-settings.php:318
+msgid "Subcategory (optional)"
+msgstr ""
+
+#: includes/class-settings.php:320
+msgid "Show artwork URL"
+msgstr ""
+
+#: includes/class-settings.php:320
+msgid "Square JPG or PNG, 1400–3000 px."
+msgstr ""
+
+#: includes/class-settings.php:321
+msgid "Language"
+msgstr ""
+
+#: includes/class-settings.php:322
+msgid "Copyright"
+msgstr ""
+
+#: includes/class-settings.php:323
+msgid "Show type"
+msgstr ""
+
+#: includes/class-settings.php:324
+msgid "Episodic (newest first)"
+msgstr ""
+
+#: includes/class-settings.php:325
+msgid "Serial (listen in order)"
+msgstr ""
+
+#: includes/class-settings.php:327
+msgid "Episodes in the feed"
+msgstr ""
+
+#: includes/class-settings.php:328
+msgid "Options"
+msgstr ""
+
+#: includes/class-settings.php:329
+msgid "The show contains explicit content"
+msgstr ""
+
+#: includes/class-settings.php:330
+msgid "Lock the feed (other platforms may not import it — Podcasting 2.0)"
+msgstr ""
+
+#: includes/class-settings.php:331
+msgid "Episodes that need sign-in to download are left out of the public feed."
+msgstr ""
+
+#: includes/class-settings.php:335
+msgid "When the plugin is deleted"
+msgstr ""
+
+#: includes/class-settings.php:337
+msgid "Data"
+msgstr ""
+
+#: includes/class-settings.php:338
+msgid "Delete likes, download counts and settings"
+msgstr ""
+
+#: includes/class-settings.php:339
+msgid "Also delete every episode and the protected audio files"
+msgstr ""
+
+#: blocks/episodes/index.js:60
+msgid "Newest first"
+msgstr ""
+
+#: blocks/episodes/index.js:61
+msgid "Oldest first"
+msgstr ""
+
+#: blocks/episodes/index.js:62
+msgid "Custom order (Order field)"
+msgstr ""
+
+#: blocks/episodes/index.js:69
+msgid "Show search"
+msgstr ""
+
+#: blocks/episodes/index.js:76
+msgid "Show series filter"
+msgstr ""
+
+#: blocks/episodes/block.json
+msgctxt "block title"
+msgid "Podcast episodes"
+msgstr ""
+
+#: blocks/episodes/block.json
+msgctxt "block description"
+msgid "A searchable list of podcast episodes with series filters and a player."
+msgstr ""
+
+#: blocks/episodes/block.json
+msgctxt "block keyword"
+msgid "podcast"
+msgstr ""
+
+#: blocks/episodes/block.json
+msgctxt "block keyword"
+msgid "audio"
+msgstr ""
+
+#: blocks/episodes/block.json
+msgctxt "block keyword"
+msgid "episodes"
+msgstr ""
+
+#: sepo-podcast.php
+msgid "Publish podcast episodes with a built-in player, likes, download counts, protected downloads and an Apple Podcasts / Spotify ready RSS feed."
+msgstr ""
+
+#: sepo-podcast.php
+msgid "Euneolink Solutions"
+msgstr ""
+
+#: sepo-podcast.php
+msgid "https://edu.sepodesk.com/"
+msgstr ""
