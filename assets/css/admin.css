@@ -70,13 +70,332 @@
 	color: #646970;
 }
 
-.column-sepo_number,
-.column-sepo_duration,
-.column-sepo_likes,
-.column-sepo_downloads {
-	width: 90px;
+/* ==========================================================================
+   Episode, Series and Episode tag list screens
+   Flat, rounded controls and a rounded table card. Scoped to the podcast
+   screens only (WordPress adds .post-type-sepo_episode to <body> there).
+   ========================================================================== */
+
+.post-type-sepo_episode {
+	--sp-a-ink: #1d2327;
+	--sp-a-muted: #50575e;
+	--sp-a-line: #dcdcde;
+	--sp-a-field: #c3c4c7;
+	--sp-a-head: #f6f7f7;
+	--sp-a-hover: #f6f9f8;
+	--sp-a-tint: #eaf6f0;
+	--sp-a-brand: #0b3d33;
+	--sp-a-brand-2: #107d59;
 }
 
-.column-sepo_audio {
-	width: 130px;
+/* Page title and "Add episode" */
+.post-type-sepo_episode .wrap .wp-heading-inline {
+	font-size: 28px;
+	font-weight: 700;
+	margin-right: 10px;
+}
+
+.post-type-sepo_episode .wrap .page-title-action {
+	top: -4px;
+	padding: 10px 18px;
+	border: 1px solid var(--sp-a-field);
+	border-radius: 12px;
+	background: #fff;
+	color: var(--sp-a-ink);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+
+.post-type-sepo_episode .wrap .page-title-action:hover,
+.post-type-sepo_episode .wrap .page-title-action:focus {
+	border-color: var(--sp-a-brand);
+	background: var(--sp-a-tint);
+	color: var(--sp-a-brand);
+}
+
+/* All / Published / Draft … as one segmented control */
+.post-type-sepo_episode .subsubsub {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 2px;
+	margin: 18px 0 8px;
+	padding: 4px;
+	border: 1px solid var(--sp-a-line);
+	border-radius: 14px;
+	background: #fff;
+	font-size: 0; /* hides the " |" separators between items */
+}
+
+.post-type-sepo_episode .subsubsub li {
+	font-size: 0; /* the " |" after each link */
+}
+
+.post-type-sepo_episode .subsubsub a {
+	display: inline-block;
+	font-size: 14px;
+	padding: 8px 14px;
+	border-radius: 10px;
+	color: var(--sp-a-ink);
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.post-type-sepo_episode .subsubsub a:hover {
+	background: var(--sp-a-head);
+}
+
+.post-type-sepo_episode .subsubsub a.current {
+	background: var(--sp-a-tint);
+	color: var(--sp-a-brand);
+}
+
+.post-type-sepo_episode .subsubsub a .count {
+	color: var(--sp-a-muted);
+	font-weight: 500;
+}
+
+/* Search box */
+.post-type-sepo_episode .search-box {
+	display: flex;
+	gap: 8px;
+	margin-top: 18px;
+}
+
+.post-type-sepo_episode .search-box input[type="search"] {
+	width: 230px;
+	min-height: 44px;
+	padding: 0 14px;
+	border: 1px solid var(--sp-a-field);
+	border-radius: 12px;
+}
+
+/* Buttons and dropdowns above and below the table */
+.post-type-sepo_episode .search-box .button,
+.post-type-sepo_episode .tablenav .button,
+.post-type-sepo_episode .tablenav select,
+.post-type-sepo_episode #col-left .button-primary {
+	min-height: 44px;
+	padding: 0 16px;
+	border: 1px solid var(--sp-a-field);
+	border-radius: 12px;
+	background-color: #fff; /* background-color only, so the dropdown arrow stays */
+	color: var(--sp-a-ink);
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 42px;
+	box-shadow: none;
+}
+
+.post-type-sepo_episode .tablenav select {
+	padding-right: 34px;
+	font-weight: 500;
+}
+
+.post-type-sepo_episode .search-box .button:hover,
+.post-type-sepo_episode .tablenav .button:hover,
+.post-type-sepo_episode .tablenav select:hover {
+	border-color: var(--sp-a-brand);
+	color: var(--sp-a-brand);
+}
+
+.post-type-sepo_episode .search-box .button:focus,
+.post-type-sepo_episode .tablenav .button:focus,
+.post-type-sepo_episode .tablenav select:focus,
+.post-type-sepo_episode .search-box input[type="search"]:focus {
+	border-color: var(--sp-a-brand);
+	outline: 2px solid var(--sp-a-brand);
+	outline-offset: 1px;
+	box-shadow: none;
+}
+
+.post-type-sepo_episode #col-left .button-primary {
+	border-color: var(--sp-a-brand);
+	background-color: var(--sp-a-brand);
+	color: #fff;
+}
+
+.post-type-sepo_episode .tablenav {
+	height: auto;
+	margin: 10px 0 14px;
+}
+
+.post-type-sepo_episode .tablenav .actions {
+	padding: 0;
+	margin-right: 8px;
+}
+
+.post-type-sepo_episode .tablenav .displaying-num {
+	color: var(--sp-a-muted);
+	font-size: 14px;
+}
+
+/* The table as a rounded card, no stripes, no shadow */
+.post-type-sepo_episode .wp-list-table {
+	border: 1px solid var(--sp-a-line);
+	border-radius: 16px;
+	border-collapse: separate;
+	border-spacing: 0;
+	overflow: hidden;
+	box-shadow: none;
+}
+
+.post-type-sepo_episode .wp-list-table thead th,
+.post-type-sepo_episode .wp-list-table thead td,
+.post-type-sepo_episode .wp-list-table tfoot th,
+.post-type-sepo_episode .wp-list-table tfoot td {
+	padding-top: 16px;
+	padding-bottom: 16px;
+	background: var(--sp-a-head);
+	color: var(--sp-a-ink);
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.post-type-sepo_episode .wp-list-table thead th,
+.post-type-sepo_episode .wp-list-table thead td {
+	border-bottom: 1px solid var(--sp-a-line);
+}
+
+.post-type-sepo_episode .wp-list-table tfoot th,
+.post-type-sepo_episode .wp-list-table tfoot td {
+	border-top: 1px solid var(--sp-a-line);
+}
+
+.post-type-sepo_episode .wp-list-table thead .check-column,
+.post-type-sepo_episode .wp-list-table tfoot .check-column {
+	padding-left: 12px;
+	vertical-align: middle;
+}
+
+.post-type-sepo_episode .wp-list-table tbody .check-column {
+	padding-left: 12px;
+	padding-top: 20px;
+}
+
+.post-type-sepo_episode .wp-list-table tbody tr,
+.post-type-sepo_episode .striped > tbody > :nth-child(odd) {
+	background: #fff;
+}
+
+.post-type-sepo_episode .wp-list-table tbody tr:hover {
+	background: var(--sp-a-hover);
+}
+
+.post-type-sepo_episode .wp-list-table tbody tr + tr td,
+.post-type-sepo_episode .wp-list-table tbody tr + tr th {
+	border-top: 1px solid #f0f0f1;
+}
+
+.post-type-sepo_episode .wp-list-table tbody td,
+.post-type-sepo_episode .wp-list-table tbody th {
+	padding-top: 18px;
+	padding-bottom: 18px;
+	color: var(--sp-a-ink);
+	font-size: 14px;
+}
+
+.post-type-sepo_episode .wp-list-table .row-title,
+.post-type-sepo_episode .wp-list-table .column-name strong a {
+	color: var(--sp-a-ink);
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.post-type-sepo_episode .wp-list-table .row-title:hover,
+.post-type-sepo_episode .wp-list-table .column-name strong a:hover {
+	color: var(--sp-a-brand-2);
+}
+
+.post-type-sepo_episode .wp-list-table .post-state {
+	color: var(--sp-a-muted);
+	font-weight: 600;
+}
+
+/* Format badges: MP3, M4A, LINK… */
+.sp-type {
+	display: inline-block;
+	min-width: 38px;
+	padding: 4px 8px;
+	border-radius: 6px;
+	background: #4b5b56;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	line-height: 1.3;
+	text-align: center;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+.sp-type-mp3 {
+	background: var(--sp-a-brand, #0b3d33);
+}
+
+.sp-type-m4a,
+.sp-type-aac {
+	background: #107d59;
+}
+
+.sp-type-link {
+	border: 1px solid #8c8f94;
+	background: #fff;
+	color: #1d2327;
+}
+
+.sp-type-none {
+	border: 1px dashed #8c8f94;
+	background: #fff;
+	color: #50575e;
+}
+
+.sp-flag {
+	margin-left: 6px;
+	color: #3c434a;
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+	vertical-align: middle;
+}
+
+/* Column widths */
+.post-type-sepo_episode .column-sepo_audio {
+	width: 120px;
+}
+
+.post-type-sepo_episode .column-sepo_number,
+.post-type-sepo_episode .column-sepo_duration,
+.post-type-sepo_episode .column-sepo_likes,
+.post-type-sepo_episode .column-sepo_downloads {
+	width: 100px;
+}
+
+.post-type-sepo_episode .column-sepo_order {
+	width: 80px;
+}
+
+/* Series and tag screens: the add form fields match */
+.post-type-sepo_episode #col-left input[type="text"],
+.post-type-sepo_episode #col-left input[type="number"],
+.post-type-sepo_episode #col-left select,
+.post-type-sepo_episode #col-left textarea {
+	border: 1px solid var(--sp-a-field);
+	border-radius: 12px;
+	padding: 8px 12px;
+}
+
+@media screen and (max-width: 782px) {
+	.post-type-sepo_episode .subsubsub {
+		display: flex;
+	}
+
+	.post-type-sepo_episode .search-box input[type="search"] {
+		width: 100%;
+	}
+
+	.post-type-sepo_episode .wp-list-table tbody tr + tr td,
+	.post-type-sepo_episode .wp-list-table tbody tr + tr th {
+		border-top: 0;
+	}
 }

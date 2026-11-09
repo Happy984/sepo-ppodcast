@@ -186,20 +186,31 @@ final class Private_Files {
 		if ( '' === $name ) {
 			return;
 		}
-		$others = get_posts(
+		if ( ! self::used_elsewhere( $name, (int) $post_id ) ) {
+			self::delete( $name );
+		}
+	}
+
+	/**
+	 * Does any other episode still point at this stored file?
+	 *
+	 * @param string $name    Stored file name.
+	 * @param int    $post_id Episode to ignore.
+	 */
+	public static function used_elsewhere( string $name, int $post_id ): bool {
+		// Two IDs are enough: if one of them is not $post_id, another episode uses it.
+		$ids = get_posts(
 			array(
 				'post_type'      => Post_Type::TYPE,
 				'post_status'    => 'any',
 				'fields'         => 'ids',
-				'posts_per_page' => 1,
-				'post__not_in'   => array( (int) $post_id ),
+				'posts_per_page' => 2,
+				'no_found_rows'  => true,
 				'meta_key'       => '_sepo_private_file', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'meta_value'     => $name, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 			)
 		);
-		if ( ! $others ) {
-			self::delete( $name );
-		}
+		return (bool) array_diff( array_map( 'intval', $ids ), array( $post_id ) );
 	}
 
 	/**

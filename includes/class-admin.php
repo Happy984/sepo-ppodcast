@@ -28,6 +28,7 @@ final class Admin {
 		add_filter( 'manage_' . Post_Type::TYPE . '_posts_columns', array( __CLASS__, 'columns' ) );
 		add_action( 'manage_' . Post_Type::TYPE . '_posts_custom_column', array( __CLASS__, 'column' ), 10, 2 );
 		add_filter( 'manage_edit-' . Post_Type::TYPE . '_sortable_columns', array( __CLASS__, 'sortable' ) );
+		add_filter( 'default_hidden_columns', array( __CLASS__, 'hidden_columns' ), 10, 2 );
 		add_action( 'pre_get_posts', array( __CLASS__, 'sort_query' ) );
 		add_filter( 'post_row_actions', array( __CLASS__, 'row_actions' ), 10, 2 );
 		add_action( 'admin_post_sepo_podcast_reset', array( __CLASS__, 'handle_reset' ) );
@@ -279,18 +280,7 @@ final class Admin {
 	 * @param int    $post_id Episode that just stopped using it.
 	 */
 	private static function drop_private_if_unused( string $name, int $post_id ): void {
-		$others = get_posts(
-			array(
-				'post_type'      => Post_Type::TYPE,
-				'post_status'    => 'any',
-				'fields'         => 'ids',
-				'posts_per_page' => 1,
-				'post__not_in'   => array( $post_id ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
-				'meta_key'       => '_sepo_private_file', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value'     => $name, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-			)
-		);
-		if ( ! $others ) {
+		if ( ! Private_Files::used_elsewhere( $name, $post_id ) ) {
 			Private_Files::delete( $name );
 		}
 	}
@@ -329,17 +319,37 @@ final class Admin {
 	 */
 	public static function columns( $cols ): array {
 		$out = array();
+		if ( isset( $cols['cb'] ) ) {
+			$out['cb'] = $cols['cb'];
+		}
+		// Format badge first, as in a document library: MP3, M4A, LINK…
+		$out['sepo_audio'] = __( 'Audio', 'sepo-podcast' );
 		foreach ( $cols as $key => $label ) {
+			if ( 'cb' === $key ) {
+				continue;
+			}
 			$out[ $key ] = $label;
 			if ( 'title' === $key ) {
 				$out['sepo_number']    = __( 'Episode', 'sepo-podcast' );
 				$out['sepo_duration']  = __( 'Length', 'sepo-podcast' );
-				$out['sepo_audio']     = __( 'Audio', 'sepo-podcast' );
-				$out['sepo_likes']     = __( 'Likes', 'sepo-podcast' );
 				$out['sepo_downloads'] = __( 'Downloads', 'sepo-podcast' );
+				$out['sepo_likes']     = __( 'Likes', 'sepo-podcast' );
 			}
 		}
 		return $out;
+	}
+
+	/**
+	 * Hide Author and Comments by default; Screen Options can show them again.
+	 *
+	 * @param string[]   $hidden Hidden columns.
+	 * @param \WP_Screen $screen Screen.
+	 */
+	public static function hidden_columns( $hidden, $screen ): array {
+		if ( $screen instanceof \WP_Screen && 'edit-' . Post_Type::TYPE === $screen->id ) {
+			$hidden = array_merge( (array) $hidden, array( 'author', 'comments' ) );
+		}
+		return (array) $hidden;
 	}
 
 	/**
@@ -358,17 +368,7 @@ final class Admin {
 				echo esc_html( (string) get_post_meta( $post_id, '_sepo_duration', true ) );
 				break;
 			case 'sepo_audio':
-				$src    = Episode::source( (int) $post_id );
-				$labels = array(
-					''         => '—',
-					'media'    => __( 'Media Library', 'sepo-podcast' ),
-					'external' => __( 'External', 'sepo-podcast' ),
-					'private'  => __( 'Protected', 'sepo-podcast' ),
-				);
-				echo esc_html( $labels[ $src['kind'] ] ?? '—' );
-				if ( Post_Type::to_bool( get_post_meta( $post_id, '_sepo_requires_login', true ) ) ) {
-					echo ' <span class="dashicons dashicons-lock" title="' . esc_attr__( 'Sign in to download', 'sepo-podcast' ) . '"></span>';
-				}
+				self::audio_badge( (int) $post_id );
 				break;
 			case 'sepo_likes':
 				echo esc_html( number_format_i18n( Counters::likes( (int) $post_id ) ) );
@@ -376,6 +376,37 @@ final class Admin {
 			case 'sepo_downloads':
 				echo esc_html( number_format_i18n( Counters::downloads( (int) $post_id ) ) );
 				break;
+		}
+	}
+
+	/**
+	 * Format badge (MP3, M4A, LINK…) plus a shield for protected files and a
+	 * lock when downloads need sign-in.
+	 *
+	 * @param int $post_id Episode.
+	 */
+	private static function audio_badge( int $post_id ): void {
+		$src = Episode::source( $post_id );
+		if ( '' === $src['kind'] ) {
+			echo '<span class="sp-type sp-type-none">' . esc_html__( 'None', 'sepo-podcast' ) . '</span>';
+			return;
+		}
+		$ext   = strtolower( pathinfo( (string) $src['name'], PATHINFO_EXTENSION ) );
+		$label = 'external' === $src['kind'] ? __( 'Link', 'sepo-podcast' ) : ( '' !== $ext ? $ext : __( 'Audio', 'sepo-podcast' ) );
+		$class = 'external' === $src['kind'] ? 'link' : ( in_array( $ext, array( 'mp3', 'm4a', 'aac' ), true ) ? $ext : 'other' );
+		$where = array(
+			'media'    => __( 'Media Library file', 'sepo-podcast' ),
+			'external' => __( 'Hosted on another site', 'sepo-podcast' ),
+			'private'  => __( 'Protected file', 'sepo-podcast' ),
+		);
+		echo '<span class="sp-type sp-type-' . esc_attr( $class ) . '" title="' . esc_attr( $where[ $src['kind'] ] ) . '">' . esc_html( $label ) . '</span>';
+		echo '<span class="screen-reader-text">' . esc_html( $where[ $src['kind'] ] ) . '</span>';
+		if ( 'private' === $src['kind'] ) {
+			echo '<span class="dashicons dashicons-shield sp-flag" title="' . esc_attr__( 'Protected file', 'sepo-podcast' ) . '" aria-hidden="true"></span>';
+		}
+		if ( Post_Type::to_bool( get_post_meta( $post_id, '_sepo_requires_login', true ) ) ) {
+			echo '<span class="dashicons dashicons-lock sp-flag" title="' . esc_attr__( 'Sign in to download', 'sepo-podcast' ) . '" aria-hidden="true"></span>';
+			echo '<span class="screen-reader-text">' . esc_html__( 'Sign in to download', 'sepo-podcast' ) . '</span>';
 		}
 	}
 
@@ -508,7 +539,7 @@ final class Admin {
 		if ( ! current_user_can( 'manage_categories' ) ) {
 			return;
 		}
-		update_term_meta( $term_id, 'sepo_order', (int) wp_unslash( $_POST['sepo_order'] ) );
+		update_term_meta( $term_id, 'sepo_order', (int) sanitize_text_field( wp_unslash( $_POST['sepo_order'] ) ) );
 	}
 
 	/**

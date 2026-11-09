@@ -105,10 +105,10 @@ final class Counters {
 		global $wpdb;
 		$table = self::likes_table();
 		// The unique key makes a double click harmless: the second insert is ignored.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$inserted = $wpdb->query(
+		$inserted = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table; totals are cached in post meta.
 			$wpdb->prepare(
-				"INSERT IGNORE INTO {$table} (episode_id, user_id, created_at) VALUES (%d, %d, %s)", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				'INSERT IGNORE INTO %i (episode_id, user_id, created_at) VALUES (%d, %d, %s)',
+				$table,
 				$episode_id,
 				$user_id,
 				current_time( 'mysql', true )
@@ -140,8 +140,7 @@ final class Counters {
 	public static function refresh_like_count( int $episode_id ): int {
 		global $wpdb;
 		$table = self::likes_table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$n     = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE episode_id = %d", $episode_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$n     = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE episode_id = %d', $table, $episode_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table; totals are cached in post meta.
 		$total = $n + (int) get_post_meta( $episode_id, '_sepo_like_offset', true );
 		update_post_meta( $episode_id, '_sepo_like_count', $total );
 		return $total;
@@ -184,11 +183,10 @@ final class Counters {
 		}
 		$table        = self::likes_table();
 		$placeholders = implode( ',', array_fill( 0, count( $ids ), '%d' ) );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$rows = $wpdb->get_col(
+		$rows = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table, one query for a whole list.
 			$wpdb->prepare(
-				"SELECT episode_id FROM {$table} WHERE user_id = %d AND episode_id IN ({$placeholders})", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
-				array_merge( array( $user_id ), $ids )
+				"SELECT episode_id FROM %i WHERE user_id = %d AND episode_id IN ({$placeholders})", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $placeholders is only "%d,%d,…".
+				array_merge( array( $table, $user_id ), $ids )
 			)
 		);
 		return array_map( 'intval', (array) $rows );
@@ -206,10 +204,10 @@ final class Counters {
 		global $wpdb;
 		$table = self::downloads_table();
 		$now   = current_time( 'mysql', true );
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$wpdb->query(
+		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table; totals are cached in post meta.
 			$wpdb->prepare(
-				"INSERT INTO {$table} (episode_id, user_id, downloads, first_at, last_at) VALUES (%d, %d, 1, %s, %s) ON DUPLICATE KEY UPDATE downloads = downloads + 1, last_at = VALUES(last_at)", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				'INSERT INTO %i (episode_id, user_id, downloads, first_at, last_at) VALUES (%d, %d, 1, %s, %s) ON DUPLICATE KEY UPDATE downloads = downloads + 1, last_at = VALUES(last_at)',
+				$table,
 				$episode_id,
 				max( 0, $user_id ),
 				$now,
@@ -227,8 +225,7 @@ final class Counters {
 	public static function refresh_download_count( int $episode_id ): int {
 		global $wpdb;
 		$table = self::downloads_table();
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$n     = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COALESCE(SUM(downloads),0) FROM {$table} WHERE episode_id = %d", $episode_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$n     = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COALESCE(SUM(downloads),0) FROM %i WHERE episode_id = %d', $table, $episode_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table; totals are cached in post meta.
 		$total = $n + (int) get_post_meta( $episode_id, '_sepo_download_offset', true );
 		update_post_meta( $episode_id, '_sepo_download_count', $total );
 		return $total;
@@ -326,11 +323,11 @@ final class Counters {
 		global $wpdb;
 		$likes = self::likes_table();
 		$dls   = self::downloads_table();
+		$like_rows = $wpdb->get_results( $wpdb->prepare( 'SELECT episode_id, created_at FROM %i WHERE user_id = %d', $likes, $user_id ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- privacy export, read once.
+		$dl_rows   = $wpdb->get_results( $wpdb->prepare( 'SELECT episode_id, downloads, first_at, last_at FROM %i WHERE user_id = %d', $dls, $user_id ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- privacy export, read once.
 		return array(
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			'likes'     => (array) $wpdb->get_results( $wpdb->prepare( "SELECT episode_id, created_at FROM {$likes} WHERE user_id = %d", $user_id ), ARRAY_A ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			'downloads' => (array) $wpdb->get_results( $wpdb->prepare( "SELECT episode_id, downloads, first_at, last_at FROM {$dls} WHERE user_id = %d", $user_id ), ARRAY_A ), // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			'likes'     => (array) $like_rows,
+			'downloads' => (array) $dl_rows,
 		);
 	}
 
@@ -359,8 +356,7 @@ final class Counters {
 			$ep = (int) $row['episode_id'];
 			$n  = (int) $row['downloads'];
 			$at = (string) $row['last_at'];
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->query( $wpdb->prepare( "INSERT INTO {$dls} (episode_id, user_id, downloads, first_at, last_at) VALUES (%d, 0, %d, %s, %s) ON DUPLICATE KEY UPDATE downloads = downloads + VALUES(downloads)", $ep, $n, $at, $at ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->query( $wpdb->prepare( 'INSERT INTO %i (episode_id, user_id, downloads, first_at, last_at) VALUES (%d, 0, %d, %s, %s) ON DUPLICATE KEY UPDATE downloads = downloads + VALUES(downloads)', $dls, $ep, $n, $at, $at ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- custom table; totals are cached in post meta.
 			++$changed;
 		}
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
