@@ -42,7 +42,6 @@ final class Render {
 	public static function register(): void {
 		wp_register_style( self::HANDLE, SEPO_PODCAST_URL . 'assets/css/podcast.css', array(), SEPO_PODCAST_VERSION );
 		wp_register_script( self::HANDLE, SEPO_PODCAST_URL . 'assets/js/podcast.js', array( 'wp-i18n' ), SEPO_PODCAST_VERSION, true );
-		wp_script_add_data( self::HANDLE, 'strategy', 'defer' );
 		wp_set_script_translations( self::HANDLE, 'sepo-podcast', SEPO_PODCAST_DIR . 'languages' );
 
 		register_block_type(
@@ -142,6 +141,19 @@ final class Render {
 	 * @param array  $args Variables for the template.
 	 */
 	public static function template( string $name, array $args = array() ): string {
+		ob_start();
+		self::render( $name, $args );
+		return (string) ob_get_clean();
+	}
+
+	/**
+	 * Print a template, preferring the theme's copy. Templates escape their
+	 * own output, so nothing is echoed here.
+	 *
+	 * @param string $name Template name without .php.
+	 * @param array  $args Variables for the template.
+	 */
+	public static function render( string $name, array $args = array() ): void {
 		$name = sanitize_key( $name );
 		$file = locate_template( array( 'sepo-podcast/' . $name . '.php' ) );
 		if ( ! $file ) {
@@ -155,12 +167,28 @@ final class Render {
 		 * @param array  $args Template variables.
 		 */
 		$file = (string) apply_filters( 'sepo_podcast_template', $file, $name, $args );
-		if ( ! is_readable( $file ) ) {
-			return '';
+		if ( is_readable( $file ) ) {
+			load_template( $file, false, $args );
 		}
-		ob_start();
-		load_template( $file, false, $args );
-		return (string) ob_get_clean();
+	}
+
+	/**
+	 * Print the player for an episode.
+	 *
+	 * @param array  $ep      Episode data.
+	 * @param string $context single | card.
+	 */
+	public static function the_player( array $ep, string $context = 'single' ): void {
+		if ( empty( $ep['has_audio'] ) ) {
+			return;
+		}
+		self::render(
+			'player',
+			array(
+				'episode' => $ep,
+				'context' => $context,
+			)
+		);
 	}
 
 	/**
@@ -241,11 +269,12 @@ final class Render {
 	 * @return array[] Episode data.
 	 */
 	public static function related( array $ep ): array {
+		// One extra is fetched and the current episode is dropped in PHP,
+		// which is cheaper than an exclusion (post__not_in) in SQL.
 		$args = array(
 			'post_type'           => Post_Type::TYPE,
 			'post_status'         => 'publish',
-			'posts_per_page'      => 4,
-			'post__not_in'        => array( $ep['id'] ), // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in -- one ID.
+			'posts_per_page'      => 5,
 			'ignore_sticky_posts' => true,
 			'no_found_rows'       => true,
 			'has_password'        => false,
@@ -264,15 +293,18 @@ final class Render {
 				)
 			);
 			foreach ( $q->posts as $p ) {
-				$out[ $p->ID ] = Episode::get( $p );
+				if ( (int) $p->ID !== (int) $ep['id'] && count( $out ) < 4 ) {
+					$out[ $p->ID ] = Episode::get( $p );
+				}
 			}
 		}
 		if ( count( $out ) < 4 ) {
-			$args['posts_per_page'] = 4 - count( $out );
-			$args['post__not_in']   = array_merge( array( $ep['id'] ), array_keys( $out ) ); // phpcs:ignore WordPressVIPMinimum.Performance.WPQueryParams.PostNotIn_post__not_in
+			$args['posts_per_page'] = 5 + count( $out );
 			$q                      = new \WP_Query( $args );
 			foreach ( $q->posts as $p ) {
-				$out[ $p->ID ] = Episode::get( $p );
+				if ( (int) $p->ID !== (int) $ep['id'] && ! isset( $out[ $p->ID ] ) && count( $out ) < 4 ) {
+					$out[ $p->ID ] = Episode::get( $p );
+				}
 			}
 		}
 		return array_values( array_filter( $out ) );

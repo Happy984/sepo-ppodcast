@@ -3,12 +3,11 @@
 /**
  * Plugin Name:       Sepo Podcast
  * Description:       Publish podcast episodes with a built-in player, likes, download counts, protected downloads and an Apple Podcasts / Spotify ready RSS feed.
- * Version:           1.1.0
+ * Version:           1.1.2
  * Requires at least: 6.4
  * Requires PHP:      8.0
  * Author:            Euneolink Solutions
- * Author URI:        https://sepodesk.com
- * Plugin URI:        https://edu.sepodesk.com
+ * Author URI:        https://edu.sepodesk.com/
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       sepo-podcast
@@ -19,7 +18,7 @@
 
 defined('ABSPATH') || exit;
 
-define('SEPO_PODCAST_VERSION', '1.1.0');
+define('SEPO_PODCAST_VERSION', '1.1.2');
 define('SEPO_PODCAST_FILE', __FILE__);
 define('SEPO_PODCAST_DIR', plugin_dir_path(__FILE__));
 define('SEPO_PODCAST_URL', plugin_dir_url(__FILE__));
