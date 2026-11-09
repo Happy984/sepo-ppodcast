@@ -15,7 +15,7 @@ Publish podcast episodes on WordPress with a clean player, likes, download count
 </p>
 
 
-![Version](https://img.shields.io/badge/version-1.1.0-0b3d33)
+![Version](https://img.shields.io/badge/version-1.1.2-0b3d33)
 ![WordPress](https://img.shields.io/badge/WordPress-6.4%2B-21759b?logo=wordpress&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.0%2B-777bb4?logo=php&logoColor=white)
 ![License](https://img.shields.io/badge/license-GPL--2.0--or--later-blue)
@@ -54,6 +54,7 @@ Every episode is a normal WordPress post with its own page, so it works with you
 - Audio from the Media Library, from another site (a CDN or your old host), or as a **protected file**.
 - **Only signed-in visitors may download.** Protected files are stored outside the Media Library and are only sent after the sign-in check, so copying the file address doesn't get round it.
 - Download counts that ignore double clicks, and one like per person. Sort the episode list by either, and reset them from the row actions.
+- A clean admin: the episode list shows each file's format (MP3, M4A, LINK) at a glance, with icons for protected and sign-in-only episodes.
 - A podcast feed with Apple Podcasts and Podcasting 2.0 tags, ready to submit to Apple Podcasts, Spotify and other apps. Each series can have its own feed too.
 - An importer for Markdown episode files, including their audio, artwork and old like and download totals. It also runs from WP-CLI.
 - A **Podcast episodes** block and a `[sepo_podcast]` shortcode.
@@ -79,7 +80,7 @@ Every episode is a normal WordPress post with its own page, so it works with you
 3. Choose the zip, click **Install Now**, then **Activate**.
 
 > [!NOTE]
-> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-ppodcast-main`. Rename it to `sepo-podcast` before uploading.
+> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-podcast-main`. Rename it to `sepo-podcast` before uploading.
 
 ### With Git
 
@@ -253,6 +254,18 @@ Sepo Podcast works with **Tools → Export Personal Data** and **Tools → Erase
 
 ## Changelog
 
+### 1.1.2
+
+- Cleaner admin: rounded, flat controls and a rounded table on the Episodes, Series and Episode tags screens.
+- New **Audio** column with a format badge (MP3, M4A, LINK), a shield for protected files and a lock for sign-in-only downloads.
+- Author and Comments columns are hidden by default; turn them back on under **Screen Options**.
+- Plugin author is now Euneolink Solutions, with links to edu.sepodesk.com.
+
+### 1.1.1
+
+- WordPress.org Plugin Check clean-up: safer database queries, prefixed template variables, and templates that print directly.
+- Faster "More episodes" and protected-file checks.
+
 ### 1.1.0
 
 - Follows the SepoDesk theme's colours, skins and dark mode automatically.
@@ -269,3 +282,5 @@ Sepo Podcast works with **Tools → Export Personal Data** and **Tools → Erase
 ## License
 
 Sepo Podcast is free software, released under the [GNU General Public License v2.0 or later](https://www.gnu.org/licenses/gpl-2.0.html).
+
+Made by [Euneolink Solutions](https://edu.sepodesk.com/).
