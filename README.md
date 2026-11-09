@@ -80,7 +80,7 @@ Every episode is a normal WordPress post with its own page, so it works with you
 3. Choose the zip, click **Install Now**, then **Activate**.
 
 > [!NOTE]
-> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-podcast-main`. Rename it to `sepo-podcast` before uploading.
+> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-ppodcast-main`. Rename it to `sepo-podcast` before uploading.
 
 ### With Git
 
